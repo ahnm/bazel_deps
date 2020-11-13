@@ -132,6 +132,7 @@ cc_binary(
     copts = COMMON_COPTS,
     linkopts = BIN_LINKOPTS + [
         "-Wl,--version-script,$(location libavutil/libavutil.lds)",
+        "-ldl",
     ],
     deps = [
         ":internal_headers",
@@ -235,6 +236,7 @@ cc_binary(
     ],
     linkopts = BIN_LINKOPTS + [
         "-Wl,--version-script,$(location libavcodec/libavcodec.lds)",
+        "-ldl",
     ],
 )
 
@@ -266,6 +268,7 @@ cc_binary(
     ],
     linkopts = BIN_LINKOPTS + [
         "-Wl,--version-script,$(location libavformat/libavformat.lds)",
+        "-lpthread",
     ],
 )
 
