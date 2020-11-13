@@ -25,6 +25,7 @@ CONFIG = {
         "calib3d",
         "core",
         "features2d",
+        "highgui",
         "imgcodecs",
         "imgproc",
         "video",
@@ -43,6 +44,25 @@ opencv_module(
         "mathfuncs_core" : ["sse2", "avx", "avx2"],
     },
     deps = ["@eigen", "@zlib"],
+)
+
+opencv_module(
+    name = "highgui",
+    config = CONFIG,
+    dispatched_files = {
+        "accum" : ["sse2", "avx", "neon"],
+    },
+    copts = [
+        "-Wno-deprecated-enum-float-conversion",
+        "-Wno-deprecated-volatile",
+    ],
+    deps = [":core", ":imgcodecs", ":videoio"],
+    excludes = [
+        "modules/highgui/src/window_carbon.cpp",
+        "modules/highgui/src/window_w32.cpp",
+        "modules/highgui/src/window_winrt.cpp",
+        "modules/highgui/src/window_winrt_bridge.cpp",
+    ],
 )
 
 opencv_module(
