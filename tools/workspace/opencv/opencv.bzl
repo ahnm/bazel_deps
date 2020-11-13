@@ -273,4 +273,7 @@ def opencv_module(*args, name = None, config = None,
             "-Iexternal/opencv/" + prefix + "/src",
             "-I$(GENDIR)/external/opencv/" + prefix + "/src",
         ] + copts,
+        linkopts = [
+            "-lpthread",
+        ],
     )
