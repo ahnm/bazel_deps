@@ -16,6 +16,8 @@
 
 load("@com_github_mjbots_bazel_deps//tools/workspace/opencv:opencv.bzl",
      "opencv_base", "opencv_module")
+load("@com_github_mjbots_bazel_deps//tools/workspace/qt5:qt5.bzl",
+     "qt_cc_library", "qt_resource")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -46,6 +48,26 @@ opencv_module(
     deps = ["@eigen", "@zlib"],
 )
 
+window_QT_res = qt_resource(
+    name = "window_QT_res",
+    files = [
+        "modules/highgui/src/window_QT.qrc",
+    ],
+)
+
+window_QT_moc = qt_cc_library(
+    name = "window_QT_moc",
+    srcs = [
+    ],
+    hdrs = [
+        "modules/highgui/src/window_QT.h",
+    ],
+    includes = [
+        "modules/core/include",
+        "modules/highgui/include",
+    ],
+)
+
 opencv_module(
     name = "highgui",
     config = CONFIG,
@@ -55,14 +77,27 @@ opencv_module(
     copts = [
         "-Wno-deprecated-enum-float-conversion",
         "-Wno-deprecated-volatile",
+        "-DHAVE_QT",
     ],
-    deps = [":core", ":imgcodecs", ":videoio"],
+    deps = [
+        ":core",
+        ":imgcodecs",
+        ":videoio",
+        "@qt5//:qt_concurrent",
+        "@qt5//:qt_core",
+        "@qt5//:qt_gui",
+        "@qt5//:qt_test",
+        "@qt5//:qt_widgets",
+    ],
     excludes = [
         "modules/highgui/src/window_carbon.cpp",
         "modules/highgui/src/window_w32.cpp",
         "modules/highgui/src/window_winrt.cpp",
         "modules/highgui/src/window_winrt_bridge.cpp",
     ],
+    srcs = [
+        window_QT_res,
+    ] + window_QT_moc,
 )
 
 opencv_module(

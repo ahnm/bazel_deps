@@ -207,7 +207,9 @@ def opencv_base(config = None):
 def opencv_module(*args, name = None, config = None,
                   excludes = None, dispatched_files = None,
                   deps = None,
-                  copts = []):
+                  copts = [],
+                  linkopts = [],
+                  srcs = []):
     prefix = "modules/{}".format(name)
 
     config = config or []
@@ -262,7 +264,7 @@ def opencv_module(*args, name = None, config = None,
         ], exclude = excludes + [
             prefix + "/src/**/*.{}.cpp".format(x[0]) for x in _KNOWN_OPTS
             if x not in enabled_opts
-        ]) + extra_sources,
+        ]) + srcs + extra_sources,
         hdrs = native.glob([
             prefix + "/include/**/*.h",
             prefix + "/include/**/*.hpp",
@@ -275,5 +277,5 @@ def opencv_module(*args, name = None, config = None,
         ] + copts,
         linkopts = [
             "-lpthread",
-        ],
+        ] + linkopts,
     )
