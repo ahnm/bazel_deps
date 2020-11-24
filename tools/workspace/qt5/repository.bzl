@@ -18,5 +18,5 @@ def qt5_repository(name, config=None):
     native.new_local_repository(
         name = name,
         path = "/usr/include/x86_64-linux-gnu/qt5",
-        build_file = "//tools/workspace/qt5:package.BUILD",
+        build_file = str(Label("//tools/workspace/qt5:package.BUILD")),
     )
