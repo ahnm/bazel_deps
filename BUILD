@@ -61,6 +61,7 @@ cc_library(
         "@pcre",
         "@pixman",
         "@python",
+        "@qt5//:all",
         "@snappy",
         "@spdlog",
         "@utfcpp",
