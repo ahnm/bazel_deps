@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-def qt5_repository(name, config=None):
+def qt5_repository(name):
     native.new_local_repository(
         name = name,
         path = "/usr/include/x86_64-linux-gnu/qt5",

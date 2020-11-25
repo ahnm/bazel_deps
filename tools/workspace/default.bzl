@@ -169,7 +169,7 @@ def add_default_repositories(excludes = [], config = get_default_config()):
     if "python" not in excludes:
         python_repository(name = "python")
     if "qt5" not in excludes:
-        qt5_repository(name = "qt5", config = config)
+        qt5_repository(name = "qt5")
     if "snappy" not in excludes:
         snappy_repository(name = "snappy")
     if "spdlog" not in excludes:
